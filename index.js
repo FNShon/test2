@@ -6,6 +6,20 @@
 // odd: an array of all odd numbers from arr.
 // If the input is not an array, the function should throw an error with message: "Input must be an array"
 export function groupArrayByParity(arr) {
+    if (!Array.isArray(arr)) {
+        throw new Error("Input must be an array");
+    } 
+
+    const result = {even: [], odd: []};
+    for (let i = 0;i<arr.length; i++) {
+        if (arr[i] % 2 === 0) {
+            result.even.push(arr[i]);
+        } else {
+            result.odd.push(arr[i]);
+        }
+    }
+    return result;
+
 }
 
 //Task: averageWordCount
@@ -13,6 +27,19 @@ export function groupArrayByParity(arr) {
 //The function should return the average number of words (with a length greater than minLength) for each sentence.
 //If sentences is empty, the function should return 0.
 export function averageWordCount(sentences, minLength) {
+    if (sentences.length === 0) {
+        return 0;
+    }
+
+    let words = 0;
+    let sentence = 0;
+    for (let i = 0; i < sentences.length; i++) {
+        const word = sentences[i].split(' ').filter(longword => longword.length > minLength);
+        words += word.length;
+        sentence++;
+    }
+
+    return words/sentence;
 }
 
 // Task: findHighestScore
@@ -32,4 +59,22 @@ export function averageWordCount(sentences, minLength) {
 // findHighestScore([ { name: 'Alice', math: 90 }, { name: 'Bob', science: 95 } ], 'math') should return 'Alice'.
 // findHighestScore([ { name: 'Alice', math: 90 }, { name: 'Bob', science: 95 } ], 'history') should return null.
 export function findHighestScore(students, subject) {
+    if (students.length === 0) {
+        return null;
+    } 
+
+    let highestScore =0;
+    let studentWithHighestScore ='';
+
+    
+
+    for (let i = 0; i<students.length; i++) {
+        if (students[i][subject] !== undefined && students[i][subject] > highestScore) {
+            highestScore = students[i][subject];
+            studentWithHighestScore = students[i].name; }
+            else if (students[i][subject] === undefined){
+                return null;
+            }
+    return studentWithHighestScore;
+    }
 }
